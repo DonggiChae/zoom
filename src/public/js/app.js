@@ -17,6 +17,7 @@ let myStream;
 let muted = false;
 let cameraOff = false;
 let roomName;
+let nickName;
 let myPeerConnection;
 let myDataChannel;
 
@@ -135,11 +136,12 @@ async function handleWelcomeSubmit(event) {
   event.preventDefault();
   const roomNameInput = welcomeForm.querySelector("#roomName");
   const nickNameInput = welcomeForm.querySelector("#name");
-  console.log(roomNameInput.value);
   await initCall();
   socket.emit("join_room",  roomNameInput.value, nickNameInput.value, showRoom);
   roomName =  roomNameInput.value;
+  nickName = nickNameInput.value;
   roomNameInput.value = "";
+  nickNameInput.value = "";
 }
 
 
@@ -174,7 +176,7 @@ function handleRecieveMessage(message) {
   const ul = chatForm.querySelector("ul");
   const li = document.createElement("li");
   li.className = "othersMessage";
-  li.innerText = message;
+  li.innerText = `${nickName}: ${message}`;
   ul.appendChild(li);
 }
 
@@ -227,15 +229,6 @@ socket.on("room_change", (rooms) => {
   }
   // socket.on("bye", (leavedSocketId) => {
   //   removeVideo(leavedSocketId);
-  // });
-  rooms.forEach(chat => {
-    const li = document.createElement("li");
-    li.innerText = chat
-    roomList.append(li);
-  });
-
-  // socket.on("bye", (left, leftId) => {
-  //   removeVideo(leftId)
   // });
 });
 
