@@ -102,6 +102,20 @@ async function handleCameraChange() {
 }
 
 
+// function removeVideo(leavedSocketId) {
+//   console.log(leavedSocketId);
+//   const streams = call.querySelector("#myStream");
+//   const streamArr = streams.querySelectorAll("div");
+//   console.log(streamArr);
+//   streamArr.forEach((streamElement) => {
+//     if (streamElement.id === leavedSocketId) {
+//       streamElement.removeChild();
+//     }
+//     console.log(streamElement.id);s
+//   });
+// }
+
+
 muteBtn.addEventListener("click", handleMuteClick);
 cameraBtn.addEventListener("click", handleCameraClick);
 camerasSelect.addEventListener("input", handleCameraChange);
@@ -211,11 +225,18 @@ socket.on("room_change", (rooms) => {
     roomList.innerHTML = "";
     return;
   }
+  // socket.on("bye", (leavedSocketId) => {
+  //   removeVideo(leavedSocketId);
+  // });
   rooms.forEach(chat => {
     const li = document.createElement("li");
     li.innerText = chat
     roomList.append(li);
   });
+
+  // socket.on("bye", (left, leftId) => {
+  //   removeVideo(leftId)
+  // });
 });
 
 

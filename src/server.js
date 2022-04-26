@@ -59,14 +59,16 @@ wsServer.on("connection", (socket) => {
       socket.to(roomName).emit("ice", ice);
     });
   });
-  socket.on("disconnecting", () => {
-    socket.rooms.forEach((room) =>
-      socket.to(room).emit("bye", socket.nickname, countRoom(room) - 1)
-    );
-    socket.on("disconnect", () => {
-      wsServer.sockets.emit("room_change", publicRooms());
-    });
-  });
+  // socket.on("disconnecting", () => {
+  //   socket.rooms.forEach((room) =>
+  //     socket.to(room).emit("bye", socket.id)
+  //   );
+  //   socket.on("disconnect", () => {
+  //     wsServer.sockets.emit("room_change", publicRooms());
+  //   });
+  // });
+
+
   // socket.on("new_message", (msg, room, done) => {
   //   socket.to(room).emit("new_message", `${socket.nickname}: ${msg}`);
   //   done();
